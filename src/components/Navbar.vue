@@ -1,7 +1,7 @@
 <template lang="html">
 
   <section class="src-components-navbar">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -58,5 +58,9 @@
 <style scoped lang="css">
   .src-components-navbar {
 
+  }
+  .nav-link {
+    font-size: 30px;
+    font-style:italic;
   }
 </style>

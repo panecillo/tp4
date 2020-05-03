@@ -3,10 +3,12 @@
   <section class="src-components-usuarios my-3">
     <h3>Lista de Usuarios Registrados</h3>
     <hr>
-
     <div class="jumbotron mt-3">
-      <button class="btn btn-success my-3" @click="getAxios()">Actualizar lista de Usuarios</button>
-      <p v-if="hayUsuarios">
+      <button class="btn btn-primary m-3" @click="getAxios()">Actualizar lista de Usuarios</button>
+      <button class="btn btn-success m-3" @click="agregarRandom()">Agrega un Usuario random</button>
+<!--       <button class="btn btn-danger m-3" @click="borrarPrimero()">Borrar el primer Usuario</button> -->
+      <button class="btn btn-danger m-3" @click="limpiarLista()">Simula borrado de la lista</button>
+      <p v-if="usuarios.length">
         <table class="table">
           <tr class="bg.success text-black">
             <th>Nº</th>
@@ -14,17 +16,15 @@
             <th>Edad</th>
             <th>Email</th>
           </tr>
-          <tr class="bg-info text-black" :v-for="(usuario, id) in usuarios">
+          <tr class="bg-info text-black" v-for="(usuario, index) in usuarios" :key="index">
             <th>{{ usuario.id }}</th>
             <th>{{ usuario.nombre }}</th>
             <th>{{ usuario.edad }}</th>
             <th>{{ usuario.email }}</th>
           </tr>
         </table>
-        <pre>{{hayUsuarios}}</pre>
-        <pre>{{usuarios}}</pre>
-        
       </p>
+      <p v-else class="alert alert-danger">No hay usuarios suscriptos</p>
     </div>
   </section>
 
@@ -47,6 +47,7 @@
     data () {
       return {
         url: 'https://5eade7584350860016e13bab.mockapi.io/usuarios',
+/*         urlDelete: 'https://5eade7584350860016e13bab.mockapi.io/usuarios/:1', */
         usuarios: []
       }
     },
@@ -58,27 +59,28 @@
           this.usuarios = res.data
         })
       },
-      postAxios() {
-        let post = {
-          nombre: 'Juan',
-          edad: 32,
-          email: 'yo@yo.com'
-        }
+      agregarRandom() {
+        let post = []
         axios.post(this.url, post, {
           'content-type' : 'application/json'
         })
-        .then( res => {
-        console.log(res.data)
-        })
+        this.getAxios()
       },
-      hayUsuarios() {
-        return this.getAxios().length() > 0
+      limpiarLista() {
+        this.usuarios = []
       }
+/*       borrarPrimero() {
+        axios.delete(this.urlDelete, {
+          id: 1}, {
+          'content-type' : 'application/json'
+        })
+      } */
+
     },
     computed: {
-
     }
-}
+  }
+
 
 
 </script>
@@ -89,5 +91,9 @@
   }
   .table {
     background-color: lightblue;
+  }
+  h3 {
+    font-size: 22px;
+    text-align:center;
   }
 </style>

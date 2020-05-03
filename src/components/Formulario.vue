@@ -138,4 +138,8 @@
   .alert {
     color: rgb(20, 20, 119);
   }
+  h3 {
+    font-size: 22px;
+    text-align:center;
+  }
 </style>
