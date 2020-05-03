@@ -3,17 +3,17 @@
   <section class="src-components-usuarios my-3">
     <h3>Lista de Usuarios Registrados</h3>
     <hr>
-    <pre>{{borrandoLista}}</pre>
+
     <div class="jumbotron mt-3">
       <button class="btn btn-primary m-3" @click="getAxios()">Actualizar lista de Usuarios</button>
       <button class="btn btn-success m-3" @click="agregarRandom()">Agrega un Usuario random</button>
-      <button class="btn btn-danger m-3" @click="borrarUsuarios()">Limpiasr lista de Usuarios</button>
+      <button class="btn btn-danger m-3" @click="borrando()">Limpiar lista de Usuarios</button>
       <div v-if="borrandoLista">  
         <div v-for="(usuario, id) in usuarios" :key="id">
           {{deleteUsuarioAxios(usuario.id)}}
         </div>
+          {{borrando()}}
       </div>
-      <button class="btn btn-danger m-3" @click="limpiarLista()">Simula borrado de la lista</button>
       <p v-if="usuarios.length">
         <table class="table">
           <tr class="bg.success text-black">
@@ -75,24 +75,14 @@
       limpiarLista() {
         this.usuarios = []
       },
-      deleteUsersList() {
-        this.getAxios()
-        this.usuarios.foreach(this.borrarUsuario(this.usuario.id))
-      },
-      borrarUsuario(id){
-        axios.delete(this.url+toString(id))
-      },
       deleteUsuarioAxios(id) {
         axios.delete(this.url+id)
         .then( res => {
           console.log(res.data);
           this.getAxios();
         })
-        if(this.usuarios.length == 0){
-          this.borrandoLista = false
-        }
       },
-        borrarUsuarios() {
+        borrando() {
         this.borrandoLista = !this.borrandoLista
       }
     },
